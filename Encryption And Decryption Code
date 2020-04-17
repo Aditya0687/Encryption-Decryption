@@ -1,0 +1,66 @@
+private void JButton_EncryptActionPerformed(ActionEvent evt) {
+try {
+FileInputStream file = new FileInputStream(this.File_path.getText());
+FileOutputStream outStream = new
+FileOutputStream("D:\\download\\Encrypt.jpg");
+String str = this.jTextField_key.getText();
+byte[] k = str.getBytes();
+SecretKeySpec key = new SecretKeySpec(k, "AES");
+Cipher enc = Cipher.getInstance("AES");
+enc.init(1, key);
+CipherOutputStream cos = new CipherOutputStream(outStream, enc);
+byte[] buf = new byte[1024];
+int read;
+while((read = file.read(buf)) != -1) {
+cos.write(buf, 0, read);
+}
+file.close();
+outStream.flush();
+cos.close();
+JOptionPane.showMessageDialog((Component)null, "The image was successfully
+encrypted");
+} catch (FileNotFoundException var11) {
+Logger.getLogger(Encrypt.class.getName()).log(Level.SEVERE, (String)null,
+var11);
+} catch (Throwable var12) {
+var12.printStackTrace();
+}
+}
+private void jButton_HomeActionPerformed(ActionEvent evt) {
+HOME rg = new HOME();
+rg.setVisible(true);
+rg.pack();
+rg.setLocationRelativeTo((Component)null);
+rg.setDefaultCloseOperation(3);
+this.dispose();
+}
+DECRYPTION FUNCTION CODE:
+try {
+LookAndFeelInfo[] var1 = UIManager.getInstalledLookAndFeels();
+int var2 = var1.length;
+for(int var3 = 0; var3 < var2; ++var3) {
+LookAndFeelInfo info = var1[var3];
+if ("Nimbus".equals(info.getName())) {
+UIManager.setLookAndFeel(info.getClassName());
+break;
+}
+}
+} catch (ClassNotFoundException var5) {
+Logger.getLogger(Decrypt.class.getName()).log(Level.SEVERE, (String)null,
+var5);
+} catch (InstantiationException var6) {
+Logger.getLogger(Decrypt.class.getName()).log(Level.SEVERE, (String)null,
+var6);
+} catch (IllegalAccessException var7) {
+Logger.getLogger(Decrypt.class.getName()).log(Level.SEVERE, (String)null,
+var7);
+} catch (UnsupportedLookAndFeelException var8) {
+Logger.getLogger(Decrypt.class.getName()).log(Level.SEVERE, (String)null,
+var8);
+}
+EventQueue.invokeLater(new Runnable() {
+public void run() {
+(new Decrypt()).setVisible(true);
+}
+});
+}
